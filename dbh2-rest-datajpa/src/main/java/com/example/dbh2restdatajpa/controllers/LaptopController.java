@@ -19,7 +19,7 @@ public class LaptopController {
         this.laptopRepository = laptopRepository;
     }
 
-    /**
+    /**http://localhost:8080/api/laptop
      * @Return
      */
     @GetMapping("/api/laptop")
@@ -34,6 +34,12 @@ public class LaptopController {
     }
 
 
+    /**http://localhost:8080/api/laptop
+     *
+     * @param laptop
+     * @param headers
+     * @return
+     */
     @PostMapping("/api/laptop")
     public ResponseEntity create(@RequestBody Laptop laptop, @RequestHeader HttpHeaders headers){
 
