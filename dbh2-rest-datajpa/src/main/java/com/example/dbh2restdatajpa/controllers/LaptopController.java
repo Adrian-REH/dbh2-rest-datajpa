@@ -2,6 +2,7 @@ package com.example.dbh2restdatajpa.controllers;
 
 import com.example.dbh2restdatajpa.entities.Laptop;
 import com.example.dbh2restdatajpa.repositories.LaptopRepository;
+import com.example.dbh2restdatajpa.services.LaptopService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -18,52 +19,52 @@ import java.util.Optional;
 public class LaptopController {
 
     @Autowired
-    private LaptopRepository laptopRepository;
+    private LaptopService laptopService;
 
-    public LaptopController(LaptopRepository laptopRepository) {
-        this.laptopRepository = laptopRepository;
+    public LaptopController(LaptopService laptopService) {
+        this.laptopService = laptopService;
     }
 
-
+    /**http://localhost:8080/api/laptop
+     * @Return
+     */
     @GetMapping("/api/laptop")
     @ApiOperation(notes = "Busca todas las laptops guardadas", value = "Buscar Laptops")
-    public ResponseEntity findAll(@ApiParam("Header Authorization") @RequestHeader HttpHeaders headers){
-
-        if (Objects.requireNonNull(headers.get("Authorization")).get(0).contentEquals("laptop-value-45xx23") ){
-            return ResponseEntity.ok(laptopRepository.findAll());
-        }
-
-        return ResponseEntity.notFound().build();
+    public ResponseEntity<List<Laptop>> findAll(@ApiParam("Header Authorization") @RequestHeader HttpHeaders headers){
+        return ResponseEntity.ok( laptopService.findAll(headers));
 
     }
 
+    @GetMapping("/api/laptop/{id}")
+    @ApiOperation(notes = "Busca todas las laptops guardadas", value = "Buscar Laptops")
+    public ResponseEntity<Optional<Laptop>> finOneById( @PathVariable Long id,@RequestHeader HttpHeaders headers){
+        return ResponseEntity.ok( laptopService.finOneById(id,headers));
+
+    }
 
 
     @PostMapping("/api/laptop")
-    @ApiOperation(value = "Create Laptop ",notes = "Consideracion\n" +
-            "1. ¿Esta Autorizado?\n" +
-            "2. ¿El id es null?\n" +
-            "3. ¿Existe en la BD?\n" +
-            "4. Resolver\n" +
-            "No: Null, Si: Guardo")
-    public ResponseEntity create(@RequestBody Laptop laptop,@RequestHeader HttpHeaders headers){
-
-        if (Objects.requireNonNull(headers.get("Authorization")).get(0).contentEquals("laptop-value-45xx23") ){
-            if (laptop.getId() != null){
-                Optional<Laptop> response = laptopRepository.findById(laptop.getId());
-                if (response.isEmpty()) {
-                    return ResponseEntity.ok(laptopRepository.save(laptop));
-                }
-            }else {
-                return ResponseEntity.ok(laptopRepository.save(laptop));
-
-            }
-        }
-
-
-        return ResponseEntity.notFound().build();
+    @ApiOperation(value = "Create Laptop ",notes = "")
+    public ResponseEntity<Laptop> create(@RequestBody Laptop laptop,@RequestHeader HttpHeaders headers){
+        return ResponseEntity.ok( laptopService.create(laptop,headers));
     }
 
+    @PutMapping("/api/laptop")
+    @ApiOperation(value = "Actualizar Laptop ",notes = "Actualizo")
+    public ResponseEntity<Laptop> update(@RequestBody Laptop laptop,@RequestHeader HttpHeaders headers){
+        return ResponseEntity.ok(laptopService.update(laptop,headers));
+    }
 
+    @DeleteMapping("/api/laptop/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id,@RequestHeader HttpHeaders headers){
+        return ResponseEntity.ok(laptopService.delete(id,headers));
+
+    }
+
+    @DeleteMapping("/api/laptop")
+    public ResponseEntity<String> deleteAll(@RequestHeader HttpHeaders headers){
+        return ResponseEntity.ok(laptopService.deleteAll(headers));
+
+    }
 
 }
