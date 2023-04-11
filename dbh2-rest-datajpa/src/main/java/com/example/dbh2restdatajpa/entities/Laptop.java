@@ -1,6 +1,6 @@
 package com.example.dbh2restdatajpa.entities;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "laptop")
