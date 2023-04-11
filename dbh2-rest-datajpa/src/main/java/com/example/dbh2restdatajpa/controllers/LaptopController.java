@@ -2,6 +2,7 @@ package com.example.dbh2restdatajpa.controllers;
 
 import com.example.dbh2restdatajpa.entities.Laptop;
 import com.example.dbh2restdatajpa.repositories.LaptopRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.Optional;
 @RestController
 public class LaptopController {
 
+    @Autowired
     private LaptopRepository laptopRepository;
 
     public LaptopController(LaptopRepository laptopRepository) {
@@ -50,8 +52,7 @@ public class LaptopController {
                     return ResponseEntity.ok(laptopRepository.save(laptop));
                 }
             }else {
-                laptopRepository.save(laptop);
-                return ResponseEntity.ok(laptop);
+                return ResponseEntity.ok(laptopRepository.save(laptop));
 
             }
         }
