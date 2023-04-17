@@ -25,10 +25,11 @@ class LaptopControllerTest {
 
     private MockMvc mockMvc;
     private final HttpHeaders headers = new HttpHeaders();
+    private static final Laptop LAPTOP_1 = new Laptop(1L,"Lenovo",3,false);
+    private static final Laptop LAPTOP_2 = new Laptop(2L,"MacOs",4,true);
+    private static final Laptop LAPTOP_NULL = new Laptop(null,null,null,null);
     private final List<Laptop> records= new  ArrayList<Laptop>(Arrays.asList(LAPTOP_1, LAPTOP_2));
 
-    ObjectMapper objectMapper = new ObjectMapper();
-    ObjectWriter objectWriter = objectMapper.writer();
 
     @Mock
     private LaptopService laptopService;
@@ -45,9 +46,6 @@ class LaptopControllerTest {
 
     }
 
-    private static final Laptop LAPTOP_1 = new Laptop(1L,"Lenovo",3,false);
-    private static final Laptop LAPTOP_2 = new Laptop(2L,"MacOs",4,true);
-    private static final Laptop LAPTOP_NULL = new Laptop(null,null,null,null);
 
 
     

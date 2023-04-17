@@ -1,12 +1,12 @@
 package com.example.dbh2restdatajpa.controllers;
 
 import com.example.dbh2restdatajpa.entities.Laptop;
-import com.example.dbh2restdatajpa.repositories.LaptopRepository;
 import com.example.dbh2restdatajpa.services.LaptopService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +18,8 @@ import java.util.Optional;
 @RestController
 public class LaptopController {
 
+    @Value("${app.varexample}")
+    String meesage;
     @Autowired
     private LaptopService laptopService;
 
@@ -31,6 +33,7 @@ public class LaptopController {
     @GetMapping("/api/laptop")
     @ApiOperation(notes = "Busca todas las laptops guardadas", value = "Buscar Laptops")
     public ResponseEntity<List<Laptop>> findAll(@ApiParam("Header Authorization") @RequestHeader HttpHeaders headers){
+        System.out.println(meesage);
         return ResponseEntity.ok( laptopService.findAll(headers));
 
     }
