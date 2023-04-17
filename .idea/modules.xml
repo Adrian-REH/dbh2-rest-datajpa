@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/dbh2-rest-datajpa/dbh2-rest-datajpa.iml" filepath="$PROJECT_DIR$/dbh2-rest-datajpa/dbh2-rest-datajpa.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dbh2-rest-datajpa.iml" filepath="$PROJECT_DIR$/dbh2-rest-datajpa.iml" />
     </modules>
   </component>
 </project>
