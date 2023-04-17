@@ -31,40 +31,42 @@ public class LaptopController {
      */
     @GetMapping("/api/laptop")
     @ApiOperation(notes = "Busca todas las laptops guardadas", value = "Buscar Laptops")
-    public ResponseEntity<List<Laptop>> findAll(@ApiParam("Header Authorization") @RequestHeader HttpHeaders headers){
-        return ResponseEntity.ok( laptopService.findAll(headers));
+    public ResponseEntity<List<Laptop>> findAll(){
+        return ResponseEntity.ok( laptopService.findAll());
 
     }
 
     @GetMapping("/api/laptop/{id}")
     @ApiOperation(notes = "Busca todas las laptops guardadas", value = "Buscar Laptops")
-    public ResponseEntity<Optional<Laptop>> finOneById( @PathVariable Long id,@RequestHeader HttpHeaders headers){
-        return ResponseEntity.ok( laptopService.finOneById(id,headers));
+    public ResponseEntity<Optional<Laptop>> finOneById( @PathVariable Long id){
+        return ResponseEntity.ok( laptopService.finOneById(id));
 
     }
 
 
     @PostMapping("/api/laptop")
     @ApiOperation(value = "Create Laptop ",notes = "")
-    public ResponseEntity<Laptop> create(@RequestBody Laptop laptop,@RequestHeader HttpHeaders headers){
-        return ResponseEntity.ok( laptopService.create(laptop,headers));
+    public ResponseEntity<Laptop> create(@RequestBody Laptop laptop){
+        System.out.println("Estoy aqui");
+
+        return ResponseEntity.ok( laptopService.create(laptop));
     }
 
     @PutMapping("/api/laptop")
     @ApiOperation(value = "Actualizar Laptop ",notes = "Actualizo")
-    public ResponseEntity<Laptop> update(@RequestBody Laptop laptop,@RequestHeader HttpHeaders headers){
-        return ResponseEntity.ok(laptopService.update(laptop,headers));
+    public ResponseEntity<Laptop> update(@RequestBody Laptop laptop){
+        return ResponseEntity.ok(laptopService.update(laptop));
     }
 
     @DeleteMapping("/api/laptop/{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id,@RequestHeader HttpHeaders headers){
-        return ResponseEntity.ok(laptopService.delete(id,headers));
+    public ResponseEntity<String> delete(@PathVariable Long id){
+        return ResponseEntity.ok(laptopService.delete(id));
 
     }
 
     @DeleteMapping("/api/laptop")
     public ResponseEntity<String> deleteAll(@RequestHeader HttpHeaders headers){
-        return ResponseEntity.ok(laptopService.deleteAll(headers));
+        return ResponseEntity.ok(laptopService.deleteAll());
 
     }
 

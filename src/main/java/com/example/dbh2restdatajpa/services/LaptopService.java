@@ -22,44 +22,38 @@ public class LaptopService {
     }
 
 
-    public List<Laptop> findAll(HttpHeaders headers){
-        if ((headers.get("Authorization").get(0).contentEquals("laptop-value-45xx23"))){
-            return laptopRepository.findAll();
-        }
-        return null;
+    public List<Laptop> findAll(){
+        return laptopRepository.findAll();
+
     }
 
-    public Optional<Laptop> finOneById(Long id, HttpHeaders headers){
-        if (headers.get("Authorization").get(0).contentEquals("laptop-value-45xx23")){
-            if (id !=null){
-                if (laptopRepository.existsById(id)) {
-                    return laptopRepository.findById(id);
-                }
+    public Optional<Laptop> finOneById(Long id){
+        if (id !=null){
+            if (laptopRepository.existsById(id)) {
+                return laptopRepository.findById(id);
             }
         }
 
         return Optional.empty();
     }
 
-    public Laptop create(Laptop laptop, HttpHeaders headers)  {
-        if (headers.get("Authorization").get(0).contentEquals("laptop-value-45xx23")){
-            if (laptop.getId() !=null){
-                if (!laptopRepository.existsById(laptop.getId())){
-                    return laptopRepository.save(laptop);
-                }
-                return null;
-
-            }else {
+    public Laptop create(Laptop laptop)  {
+        if (laptop.getId() !=null){
+            if (!laptopRepository.existsById(laptop.getId())){
                 return laptopRepository.save(laptop);
-
             }
+            return null;
+
+        }else {
+            System.out.println("Estoy aqui");
+            return laptopRepository.save(laptop);
+
         }
 
-        return null;
     }
 
-    public Laptop update(Laptop laptop, HttpHeaders headers){
-        if (isAuthorizationAndExistLaptop(laptop.getId(),headers)){
+    public Laptop update(Laptop laptop){
+        if (isAuthorizationAndExistLaptop(laptop.getId())){
 
             return laptopRepository.save(laptop);
 
@@ -68,8 +62,8 @@ public class LaptopService {
         return null;
     }
 
-    public String delete(Long id, HttpHeaders headers){
-        if (isAuthorizationAndExistLaptop(id,headers)){
+    public String delete(Long id){
+        if (isAuthorizationAndExistLaptop(id)){
             laptopRepository.deleteById(id);
             return"Se borro correctamente";
 
@@ -78,23 +72,19 @@ public class LaptopService {
         return null;
     }
 
-    private Boolean isAuthorizationAndExistLaptop(Long id,HttpHeaders headers){
-        if (headers.get("Authorization").get(0).contentEquals("laptop-value-45xx23")){
-            if (id!=null){
-                if (laptopRepository.existsById(id)){
-                    return true;
-                }
+    private Boolean isAuthorizationAndExistLaptop(Long id){
+        if (id!=null){
+            if (laptopRepository.existsById(id)){
+                return true;
             }
         }
         return false;
     }
 
-    public String deleteAll( HttpHeaders headers){
-        if (headers.get("Authorization").get(0).contentEquals("laptop-value-45xx23")){
-            if (laptopRepository.findAll().size() > 0){
-                laptopRepository.deleteAll();
-                return"Se borraron correctamente";
-            }
+    public String deleteAll(){
+        if (laptopRepository.findAll().size() > 0){
+            laptopRepository.deleteAll();
+            return"Se borraron correctamente";
         }
 
         return null;
