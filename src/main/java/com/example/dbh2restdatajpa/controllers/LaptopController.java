@@ -18,8 +18,7 @@ import java.util.Optional;
 @RestController
 public class LaptopController {
 
-    @Value("${app.varexample}")
-    String meesage;
+
     @Autowired
     private LaptopService laptopService;
 
@@ -33,7 +32,6 @@ public class LaptopController {
     @GetMapping("/api/laptop")
     @ApiOperation(notes = "Busca todas las laptops guardadas", value = "Buscar Laptops")
     public ResponseEntity<List<Laptop>> findAll(@ApiParam("Header Authorization") @RequestHeader HttpHeaders headers){
-        System.out.println(meesage);
         return ResponseEntity.ok( laptopService.findAll(headers));
 
     }
